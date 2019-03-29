@@ -1,0 +1,34 @@
+STRUCTURATIONS DES DONNEES
+
+    User:
+        user.id
+            user.displayName
+            user.photoURL
+            user.description
+            user.wallet
+                wallet.amount
+                wallet.startDate
+                wallet.recurrency
+            user.transaction
+                transaction.received
+                    transaction.id
+                        transaction.content
+                        transaction.amount
+                        transaction.donor
+                        transaction.date
+                transaction.done
+                    transaction.id
+                        transaction.content
+                        transaction.donor
+                        transaction.status //ongoing-finish(-suppressed) 
+                        transaction.amount
+                        transaction.date
+            user.subscriptions
+                subscriptions.in
+                subscriptions.out
+            user.authorDetails
+                author.siteURL
+                author.pfmKey
+                author.content  
+                    content.id
+

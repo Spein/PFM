@@ -1,6 +1,5 @@
 // TODO(DEVELOPER): Change the values below using values from the initialization snippet: Firebase Console > Overview > Add Firebase to your web app.
 // Initialize Firebase
-
   // Initialize Firebase
   var config = {
     apiKey: "AIzaSyAdxBw7BVvGgtp0PliC5y_xXPfv35nDEuw",
@@ -39,6 +38,21 @@ function initApp() {
       var isAnonymous = user.isAnonymous;
       var uid = user.uid;
       var providerData = user.providerData;
+      firebase.database().ref('users/' + uid).set({
+        username: user.displayName,
+        email: user.email,
+        profile_picture : user.photoURL,
+        pfm_key:123,
+      }, function(error) {
+        if (error) {
+          // The write failed...
+          console.log(error)
+        } else {
+          // Data saved successfully!
+          console.log("Data saved")
+        }
+      });
+      
       // [START_EXCLUDE]
       document.getElementById('quickstart-button').textContent = 'Sign out';
       document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
@@ -56,8 +70,9 @@ function initApp() {
   });
   // [END authstatelistener]
 
-  document.getElementById('quickstart-button').addEventListener('click', startSignIn, false);
-}
+  document.getElementById('quickstart-button').addEventListener('click', startSignIn, false);}
+
+
 
 /**
  * Start the auth flow and authorizes to Firebase.
@@ -74,7 +89,7 @@ function startAuth(interactive) {
       // Authorize Firebase with the OAuth Access Token.
       var credential = firebase.auth.GoogleAuthProvider.credential(null, token);
       firebase.auth().signInAndRetrieveDataWithCredential(credential).catch(function(error) {
-        // The OAuth token might have been invalidated. Lets' remove it from cache.
+        // The OAuth token might have been invalidated. Lets' remove it from cache.0
         if (error.code === 'auth/invalid-credential') {
           chrome.identity.removeCachedAuthToken({token: token}, function() {
             startAuth(interactive);
@@ -99,6 +114,7 @@ function startSignIn() {
   }
 }
 
+
 window.onload = function() {
   initApp();
-};
+}
